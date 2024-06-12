@@ -1,0 +1,58 @@
+- name: Checando atualizações do sistema
+  apt:
+    update_cache: true
+
+- name: Habilitando configuração SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication'
+    line: 'PasswordAuthentication yes'
+  when: not (ansible_check_mode | bool)
+
+- name: Reiniciando serviço SSH
+  service:
+    name: ssh
+    state: restarted
+  when: not (ansible_check_mode | bool)
+
+- name: Mudando Hostname da instância
+  ansible.builtin.hostname:
+    name: Containernet
+
+- name: Baixando e executando repositório de instalação Docker
+  shell: curl -fsSL '{{ repo_docker }}' | bash
+
+- name: Criando um novo usuário para o laboratório
+  user:
+    name: '{{ config }}'
+    password: '{{ pass }}'
+    groups: docker
+    state: present
+    shell: /bin/bash
+    create_home: yes
+  when: not (ansible_check_mode | bool)
+
+- name: Movendo arquivo de configuração
+  copy:
+    src: '{{ repo_utils }}'
+    dest: '{{ repo_elements }}'
+  when: not (ansible_check_mode | bool)
+
+- name: Instalando Open vSwitch
+  apt:
+    name: openvswitch-switch
+    state: present
+
+- name: Executando contêiner Docker com topologia no Containernet
+  shell: cd '{{ repo_app }}' && docker compose up -d
+
+- name: Confirmando execução dos Contêineres
+  shell: sleep 10
+  changed_when: true
+  
+- name: Método de conexão com a instância
+  debug:
+    msg:
+    - '[ AVISO ] Tenha certeza de estar dentro do repositório: ./automation-of-simulated-networks/'
+    - '[ AVISO ] Para efetuar a conexão SSH na instância. Copie e cole o comando abaixo no terminal:'
+    - 'ssh -i playbook-automated-networks/credentials/keypair.pem ubuntu@{{ public_ip }}'
