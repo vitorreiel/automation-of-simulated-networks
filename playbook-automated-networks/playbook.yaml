@@ -8,8 +8,8 @@
     - create-instance
     - describe-instance
 
-- name: Iniciando conexão com a máquina EC2 Mininet
-  hosts: instance-mininet
+- name: Iniciando conexão com a máquina EC2 Containernet
+  hosts: instance-containernet
   become: true
   vars_files:
   - vars/main.yaml

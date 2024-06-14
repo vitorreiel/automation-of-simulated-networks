@@ -1,7 +1,7 @@
-- name: Criando instância Mininet
+- name: Criando instância Containernet
   amazon.aws.ec2_instance:
-    name: Mininet
-    instance_type: t2.medium
+    name: Containernet
+    instance_type: t2.large
     image_id: '{{ image }}'
     count: 1
     region: '{{ region }}'

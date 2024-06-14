@@ -1,7 +1,7 @@
 # [ Váriaveis de configuração de acesso para AWS ]
-aws_access_key:
-aws_secret_key:
-aws_session_token:
+aws_access_key: 
+aws_secret_key: 
+aws_session_token: 
 
 # [ Váriaveis de configuração para criação das Máquinas Virtuais ]
 image: ami-007855ac798b5175e
@@ -19,5 +19,6 @@ repo_mininet: https://github.com/mininet/mininet
 repo_keypair: credentials/keypair.pem
 repo_hosts: hosts
 repo_vars: vars/main.yaml
-repo_utils: utils/topology/serial-topology
-repo_elements: /opt/network-elements
+repo_dest: /opt/
+repo_utils: utils/network-components
+repo_start: ../../opt/network-components/start.sh

@@ -1,5 +1,5 @@
 [virtual-machines]
-instance-mininet ansible_host= ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+instance-containernet ansible_host= ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [virtual-machines:vars]
 ansible_connection=ssh
