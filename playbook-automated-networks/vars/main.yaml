@@ -1,7 +1,7 @@
 # [ Váriaveis de configuração de acesso para AWS ]
-aws_access_key: 
-aws_secret_key: 
-aws_session_token: 
+aws_access_key:
+aws_secret_key:
+aws_session_token:
 
 # [ Váriaveis de configuração para criação das Máquinas Virtuais ]
 image: ami-007855ac798b5175e

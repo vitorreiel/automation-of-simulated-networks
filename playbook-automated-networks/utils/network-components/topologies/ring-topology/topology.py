@@ -28,37 +28,31 @@ def topology(args):
 
     info("*** Creating nodes\n")
 
-    hostA = net.addDocker('Host-A', mac='00:00:00:00:00:10', ip='10.0.10.100/24', dimage="alpine-user:latest", defaultRoute='via 10.0.10.254')
-    hostB = net.addDocker('Host-B', mac='00:00:00:00:00:20', ip='10.0.20.100/24', dimage="alpine-user:latest", defaultRoute='via 10.0.20.254')
-    hostC = net.addDocker('Host-C', mac='00:00:00:00:00:30', ip='10.0.30.100/24', dimage="alpine-user:latest", defaultRoute='via 10.0.30.254')
+    hostA1 = net.addDocker('host-a1', mac='00:00:00:00:00:11', ip='10.0.10.101/24', dimage="alpine-user:latest", defaultRoute='via 10.0.10.254')
+    hostB1 = net.addDocker('host-b1', mac='00:00:00:00:00:21', ip='10.0.20.101/24', dimage="alpine-user:latest", defaultRoute='via 10.0.20.254')
+    hostB2 = net.addDocker('host-b2', mac='00:00:00:00:00:22', ip='10.0.20.102/24', dimage="alpine-user:latest", defaultRoute='via 10.0.20.254')
+    hostC1 = net.addDocker('host-c1', mac='00:00:00:00:00:31', ip='10.0.30.101/24', dimage="alpine-user:latest", defaultRoute='via 10.0.30.254')
+    hostC2 = net.addDocker('host-c2', mac='00:00:00:00:00:32', ip='10.0.30.102/24', dimage="alpine-user:latest", defaultRoute='via 10.0.30.254')
+    hostC3 = net.addDocker('host-c3', mac='00:00:00:00:00:33', ip='10.0.30.103/24', dimage="alpine-user:latest", defaultRoute='via 10.0.30.254')
 
     c1 = net.addController('c1')
 
     info('*** Adding switches\n')
     s1 = net.addSwitch('s1')
-    s2 = net.addSwitch('s2')
-    s3 = net.addSwitch('s3')
-
-    port1 = net.addSwitch('port1')
-    port2 = net.addSwitch('port2')
-    port3 = net.addSwitch('port3')
 
     info('*** Adding routers\n')
     defaultIP = '10.0.10.254/24'
     router = net.addHost( 'r0', cls=LinuxRouter, ip=defaultIP)
 
     info("*** Associating and Creating links\n")
-    net.addLink(port1, router, intfName2='r0-eth1', params2={ 'ip' : defaultIP } )
-    net.addLink(port2, router, intfName2='r0-eth2', params2={ 'ip' : '10.0.20.254/24' } )
-    net.addLink(port3, router, intfName2='r0-eth3', params2={ 'ip' : '10.0.30.254/24' } )
+    net.addLink(hostA1, s1)
+    net.addLink(hostB1, s1)
+    net.addLink(hostB2, s1)
+    net.addLink(hostC1, s1)
+    net.addLink(hostC2, s1)
+    net.addLink(hostC3, s1)
 
-    net.addLink(hostA, s1)
-    net.addLink(hostB, s2)
-    net.addLink(hostC, s3)
-
-    net.addLink(s1, port1)
-    net.addLink(s2, port2)
-    net.addLink(s3, port3)
+    net.addLink(s1, router, intfName2='r0-eth1', params2={ 'ip' : defaultIP } )
 
     info("*** Starting network\n")
     net.start()

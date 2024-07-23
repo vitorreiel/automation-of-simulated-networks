@@ -38,33 +38,26 @@ def topology(args):
     c1 = net.addController('c1')
 
     info('*** Adding switches\n')
-    s1 = net.addSwitch('s1')
-    s2 = net.addSwitch('s2')
-    s3 = net.addSwitch('s3')
-
-    port1 = net.addSwitch('port1')
-    port2 = net.addSwitch('port2')
-    port3 = net.addSwitch('port3')
+    rootSwitch = net.addSwitch('s1')
+    level1Switch1 = net.addSwitch('s2')
+    level1Switch2 = net.addSwitch('s3')
 
     info('*** Adding routers\n')
     defaultIP = '10.0.10.254/24'
     router = net.addHost( 'r0', cls=LinuxRouter, ip=defaultIP)
 
     info("*** Associating and Creating links\n")
-    net.addLink(port1, router, intfName2='r0-eth1', params2={ 'ip' : defaultIP } )
-    net.addLink(port2, router, intfName2='r0-eth2', params2={ 'ip' : '10.0.20.254/24' } )
-    net.addLink(port3, router, intfName2='r0-eth3', params2={ 'ip' : '10.0.30.254/24' } )
+    net.addLink(rootSwitch, level1Switch1)
+    net.addLink(rootSwitch, level1Switch2)
 
-    net.addLink(hostA1, s1)
-    net.addLink(hostB1, s2)
-    net.addLink(hostB2, s2)
-    net.addLink(hostC1, s3)
-    net.addLink(hostC2, s3)
-    net.addLink(hostC3, s3)
+    net.addLink(hostA1, level1Switch1)
+    net.addLink(hostB1, level1Switch1)
+    net.addLink(hostB2, level1Switch2)
+    net.addLink(hostC1, level1Switch2)
+    net.addLink(hostC2, level1Switch2)
+    net.addLink(hostC3, level1Switch2)
 
-    net.addLink(s1, port1)
-    net.addLink(s2, port2)
-    net.addLink(s3, port3)
+    net.addLink(rootSwitch, router, intfName2='r0-eth1', params2={ 'ip' : defaultIP } )
 
     info("*** Starting network\n")
     net.start()
