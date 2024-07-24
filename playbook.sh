@@ -26,7 +26,7 @@ sleep 1
 echo -e "\n\033[1;31m- [ Digite: 2 - Para deletar um cenário de rede emulada já existente. ] \033[0m\n"
 read confirmacao
 
-if [ "$confirmacao" = "Sim" ] || [ "$confirmacao" = "SIM" ] || [ "$confirmacao" == "sim" ] || [ "$confirmacao" == "s" ] || [ "$confirmacao" == "S" ]; then
+if [ "$confirmacao" = "1" ] || [ "$confirmacao" = "01" ]; then
 
   clear
   echo -e "\n\033[1;32m- [ Digite apenas o número correspondente a topologia desejada! ] \033[0m\n"
@@ -104,7 +104,7 @@ if [ "$confirmacao" = "Sim" ] || [ "$confirmacao" = "SIM" ] || [ "$confirmacao" 
 
   fi
 
-elif [ "$confirmacao" = "Não" ] || [ "$confirmacao" = "NÃO" ] || [ "$confirmacao" == "não" ] || [ "$confirmacao" == "Nao" ] || [ "$confirmacao" = "NAO" ] || [ "$confirmacao" == "nao" ] || [ "$confirmacao" == "n" ] || [ "$confirmacao" == "N" ]; then
+elif [ "$confirmacao" = "2" ] || [ "$confirmacao" = "02" ]; then
 
   echo -e '\n\033[1;33m- [ Por favor, modifique o arquivo "aws_access" e inserindo toda sua AWS CLI. ] \033[0m'
 
