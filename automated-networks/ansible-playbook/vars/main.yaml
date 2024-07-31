@@ -10,8 +10,8 @@ region: us-east-1
 key_name: network-simulation-keypair
 controller_ip: "10.0.0.1"
 public_ip:
-config: aluno
-pass: $6$AuMbFesr.2/kt6K2$kY623l4jL4uyONXdwCQsMd/3Bspa88fnYE/EYrX.BtAKISsmTfK.2EPlbXeKaz2wgNZweP7J6bziLL3Xhd4Re/
+vpc_id:
+instance_name: SDN-Network-EC2
 
 # [ Repositórios ]
 repo_docker: https://get.docker.com
@@ -20,5 +20,5 @@ repo_keypair: credentials/keypair.pem
 repo_hosts: hosts
 repo_vars: vars/main.yaml
 repo_dest: /opt/
-repo_utils: utils/network-components
+repo_utils: ../utils/network-components
 repo_start: ../../opt/network-components/start.sh

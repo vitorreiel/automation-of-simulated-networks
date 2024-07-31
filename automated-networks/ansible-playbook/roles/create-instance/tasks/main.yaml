@@ -1,12 +1,13 @@
-- name: Criando instância Containernet
+- name: Criando instância SDN Network
   amazon.aws.ec2_instance:
-    name: Containernet
+    name: '{{ instance_name }}'
     instance_type: t2.large
     image_id: '{{ image }}'
     count: 1
     region: '{{ region }}'
     key_name: '{{ key_name }}'
     security_group: '{{ security_group_name }}'
+    vpc_subnet_id: '{{ ec2_subnet_result.subnet.id }}'
     aws_access_key: '{{ aws_access_key }}'
     aws_secret_key: '{{ aws_secret_key }}'
     aws_session_token: '{{ aws_session_token }}'
